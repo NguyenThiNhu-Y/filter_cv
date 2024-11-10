@@ -6,18 +6,34 @@ import MainContent from "./component/MainContent";
 import Sidebar from "./component/Sidebar";
 import DetailedCV from "./component/DetailedCV";
 import { CVItem } from "./type/types";
+import Statistics from "./component/Statistics";
+
+interface SelectedFolder {
+  folder_id: string;
+  folder_name: string;
+}
 
 export default function Home() {
-  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
+  const [view, setView] = useState<"main" | "detail" | "stats">("main");
+  const [selectedFolder, setSelectedFolder] = useState<SelectedFolder | null>(
+    null
+  );
   const [selectedCV, setSelectedCV] = useState<CVItem | null>(null);
 
-  const handleSelectCV = (cv: CVItem) => setSelectedCV(cv);
-  const handleBack = () => setSelectedCV(null);
+  const handleSelectCV = (cv: CVItem) => {
+    setSelectedCV(cv);
+    setView("detail");
+  };
+
+  const handleBack = () => {
+    setSelectedCV(null);
+    setView("main");
+  };
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      {!selectedCV ? (
+      <Sidebar setView={setView} view={view} />
+      {view === "main" && (
         <>
           <FolderList setSelectedFolder={setSelectedFolder} />
           <MainContent
@@ -25,9 +41,9 @@ export default function Home() {
             onSelectCV={handleSelectCV}
           />
         </>
-      ) : (
-        <DetailedCV cv={selectedCV} onBack={handleBack} />
       )}
+      {view === "detail" && <DetailedCV cv={selectedCV!} onBack={handleBack} />}
+      {view === "stats" && <Statistics />}
     </div>
   );
 }

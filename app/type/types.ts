@@ -1,8 +1,8 @@
 export interface CVItem {
-  name: string;
-  title: string;
+  full_name: string;
+  job_title: string;
   email: string;
-  phone: string;
+  phone_number: string;
   skills: string[];
-  thumbnail: string;
+  resume_thumbnail_base64: string;
 }

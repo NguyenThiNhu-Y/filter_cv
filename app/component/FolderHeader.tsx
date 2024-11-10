@@ -25,9 +25,9 @@ const FolderHeader: React.FC<FolderHeaderProps> = ({ onSearch, onAdd }) => {
       </div>
       <input
         type="text"
-        placeholder="Tìm Kiếm Thư Mục"
-        className="mb-4 w-full p-2 border rounded-md text-sm"
-        onChange={(e) => onSearch(e.target.value)} // Call onSearch when input changes
+        placeholder="Tìm kiếm thư mục"
+        className="mb-4 w-full p-3 border border-gray-200 rounded-md text-sm placeholder-gray-500 placeholder-opacity-50 focus:outline-none focus:border-blue-400 transition duration-200 ease-in-out shadow-sm"
+        onChange={(e) => onSearch(e.target.value)}
       />
     </>
   );

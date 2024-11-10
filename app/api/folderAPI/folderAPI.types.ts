@@ -22,3 +22,8 @@ export interface CreateFolderRequest {
   user_id: string;
 }
 
+export interface UpdateFolderRequest {
+  folder_id: string;
+  folder_name: string;
+}
+

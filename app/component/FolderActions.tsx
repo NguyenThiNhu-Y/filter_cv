@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import UpdateFolderDialog from "./UpdateFolderDialog";
+import DeleteFolderDialog from "./DeleteFolderDialog";
 
 interface FolderActionsProps {
   folderName: string;
@@ -16,6 +17,7 @@ const FolderActions: React.FC<FolderActionsProps> = ({
   onUpdate,
 }) => {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const handleOpenUpdateDialog = () => {
     setIsUpdateDialogOpen(true);
@@ -23,6 +25,15 @@ const FolderActions: React.FC<FolderActionsProps> = ({
 
   const handleCloseUpdateDialog = () => {
     setIsUpdateDialogOpen(false);
+    onClose(); // Close the action menu as well
+  };
+
+  const handleOpenDeleteDialog = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setIsDeleteDialogOpen(false);
     onClose(); // Close the action menu as well
   };
 
@@ -35,7 +46,10 @@ const FolderActions: React.FC<FolderActionsProps> = ({
         >
           <MdEdit className="mr-1" /> Đổi Tên Thư Mục
         </button>
-        <button className="flex items-center text-red-500">
+        <button
+          className="flex items-center text-red-500"
+          onClick={handleOpenDeleteDialog}
+        >
           <MdDelete className="mr-1" /> Xóa Thư Mục
         </button>
       </div>
@@ -45,6 +59,12 @@ const FolderActions: React.FC<FolderActionsProps> = ({
         initialFolderName={folderName}
         folderId={folderId}
         onUpdate={onUpdate} // Pass the onUpdate function here
+      />
+      <DeleteFolderDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={handleCloseDeleteDialog}
+        folderName={folderName}
+        folderId={folderId}
       />
     </>
   );
